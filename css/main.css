@@ -854,3 +854,4 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
   .feature-chip-text { font-size: 13px; }
   .calc-item__text { flex-direction: column; align-items: flex-start; gap: 2px; }
 }
+/* responsive: updated media queries */
