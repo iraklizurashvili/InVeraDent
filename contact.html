@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="In Vera Dent — ჩაწერა და კონტაქტი">
+  <title>კონტაქტი | In Vera Dent</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<!-- ── Header / Navbar ──────────────────────────────────── -->
+<header>
+  <nav class="navbar" aria-label="მთავარი ნავიგაცია">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-mark">🦷</div>
+        IN VERA <span>DENT</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html">მთავარი</a></li>
+        <li><a href="services.html">სერვისები</a></li>
+        <li><a href="prices.html">ფასები</a></li>
+        <li><a href="contact.html" class="active">კონტაქტი</a></li>
+      </ul>
+
+      <div class="nav-cta">
+        <a href="tel:59993261" class="btn btn-ghost btn-sm">📞 599 93 26 16</a>
+        <a href="contact.html" class="btn btn-primary btn-sm">ჩაწერა</a>
+      </div>
+
+      <button class="nav-hamburger" aria-label="მენიუ" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-drawer" role="dialog" aria-label="მობილური მენიუ">
+    <a href="index.html"><span class="nav-icon">🏠</span> მთავარი</a>
+    <a href="services.html"><span class="nav-icon">🦷</span> სერვისები</a>
+    <a href="prices.html"><span class="nav-icon">💰</span> ფასები</a>
+    <a href="contact.html"><span class="nav-icon">📬</span> კონტაქტი</a>
+    <div class="nav-drawer-footer">
+      <a href="tel:59993261" class="btn btn-secondary btn-full">📞 599 93 26 16</a>
+      <a href="contact.html" class="btn btn-primary btn-full">ჩაწერა ახლავე</a>
+    </div>
+  </div>
+</header>
+
+<!-- ── Main Content ─────────────────────────────────────── -->
+<main>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <p class="label text-teal anim-fade-up">კონტაქტი</p>
+      <h1 class="display-lg anim-fade-up delay-1">ჩაწერა ვიზიტზე</h1>
+      <p class="body-md text-soft anim-fade-up delay-2 page-subtitle">
+        შეავსეთ ფორმა და ჩვენ დაგიკავშირდებით 24 საათის განმავლობაში
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- Booking Form -->
+        <div class="contact-form-card reveal">
+          <div class="form-header">
+            <h2>ჩაწერის ფორმა</h2>
+            <p id="booking-counter-msg" class="form-counter-msg"></p>
+          </div>
+
+          <!-- Success / Error banner -->
+          <div id="formBanner" class="form-banner form--hidden" role="alert" aria-live="polite" hidden></div>
+
+          <form id="bookingForm" class="booking-form" novalidate>
+
+            <!-- Row 1: Name + Surname -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">სახელი <span class="required">*</span></label>
+                <input
+                  type="text"
+                  id="fname"
+                  name="fname"
+                  class="form-input"
+                  placeholder="მაგ. ნინო"
+                  autocomplete="given-name"
+                  required
+                  minlength="2"
+                  maxlength="50"
+                >
+                <span class="field-error" id="fname-error" role="alert"></span>
+              </div>
+              <div class="form-group">
+                <label for="lname">გვარი <span class="required">*</span></label>
+                <input
+                  type="text"
+                  id="lname"
+                  name="lname"
+                  class="form-input"
+                  placeholder="მაგ. მამულაშვილი"
+                  autocomplete="family-name"
+                  required
+                  minlength="2"
+                  maxlength="50"
+                >
+                <span class="field-error" id="lname-error" role="alert"></span>
+              </div>
+            </div>
+
+            <!-- Row 2: Phone + Email -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">მობილური <span class="required">*</span></label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  class="form-input"
+                  placeholder="5XX XX XX XX"
+                  autocomplete="tel"
+                  required
+                  pattern="^[5][0-9]{8}$"
+                >
+                <span class="field-error" id="phone-error" role="alert"></span>
+              </div>
+              <div class="form-group">
+                <label for="email">ელ-ფოსტა</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-input"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                >
+                <span class="field-error" id="email-error" role="alert"></span>
+              </div>
+            </div>
+
+            <!-- Row 3: Service + Date -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="service">სასურველი სერვისი <span class="required">*</span></label>
+                <select
+                  id="service"
+                  name="service"
+                  class="form-input form-select"
+                  required
+                >
+                  <option value="" disabled selected>— აირჩიეთ —</option>
+                  <optgroup label="თერაპიული">
+                    <option value="therapy">კარიესის მკურნალობა</option>
+                    <option value="root_canal">ფესვის არხის მკურნალობა</option>
+                    <option value="filling">ფილინგი / ექსტრაქცია</option>
+                  </optgroup>
+                  <optgroup label="ორთოდონტია">
+                    <option value="braces">ბრეკეტები</option>
+                    <option value="invisalign">ინვიზელაინი</option>
+                  </optgroup>
+                  <optgroup label="ესთეტიკური">
+                    <option value="whitening">კბილების გათეთრება</option>
+                    <option value="veneers">ვინირები</option>
+                  </optgroup>
+                  <optgroup label="ქირურგია / ორთოპედია">
+                    <option value="implant">კბილის იმპლანტი</option>
+                    <option value="crown">გვირგვინი / ხიდი</option>
+                    <option value="extraction">ექსტრაქცია</option>
+                  </optgroup>
+                  <option value="consultation">კონსულტაცია</option>
+                  <option value="other">სხვა</option>
+                </select>
+                <span class="field-error" id="service-error" role="alert"></span>
+              </div>
+              <div class="form-group">
+                <label for="date">სასურველი თარიღი <span class="required">*</span></label>
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  class="form-input"
+                  required
+                >
+                <span class="field-error" id="appointmentDate-error" role="alert"></span>
+              </div>
+            </div>
+
+            <!-- Row 4: Message -->
+            <div class="form-group">
+              <label for="notes">შენიშვნა / კომენტარი</label>
+              <textarea
+                id="notes"
+                name="notes"
+                class="form-input form-textarea"
+                placeholder="მოკლე აღწერა თქვენი საჩივრის ან სპეციალური მოთხოვნის შესახებ…"
+                rows="4"
+                maxlength="500"
+              ></textarea>
+              <span class="char-count" id="msg-char-count">0 / 500</span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">
+              <span id="submitBtnText">📅 ჩაწერა</span>
+              <span id="submitSpinner" class="btn-spinner form--hidden" aria-hidden="true"></span>
+            </button>
+
+          </form>
+
+          <!-- Inline success state (shown by JS after submit) -->
+          <div id="formSuccess" class="form-success" hidden>
+            <div class="success-icon">✅</div>
+            <h3>ჩაწერა მიღებულია!</h3>
+            <p>ჩვენ დაგიკავშირდებით 24 საათის განმავლობაში.<br>გმადლობთ, რომ ირჩიეთ In Vera Dent! 🦷</p>
+            <a href="index.html" class="btn btn-primary mt-16">← მთავარ გვერდზე</a>
+          </div>
+        </div><!-- /.form-wrapper -->
+
+        <!-- Contact Info Sidebar -->
+        <aside class="contact-info reveal">
+          <div class="contact-info-card">
+            <h3>საკონტაქტო ინფო</h3>
+            <div class="contact-info-list">
+              <div class="contact-info-item">
+                <div class="contact-info-icon">📍</div>
+                <div class="contact-info-text">
+                  <strong>მისამართი</strong>
+                  <span>თბილისი, ვ.ბარნოვის ქ. 24</span>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <div class="contact-info-icon">📞</div>
+                <div class="contact-info-text">
+                  <strong>ტელეფონი</strong>
+                  <a href="tel:59993261">599 93 26 16</a>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <div class="contact-info-icon">✉️</div>
+                <div class="contact-info-text">
+                  <strong>ელ-ფოსტა</strong>
+                  <a href="mailto:inveradent@gmail.com">inveradent@gmail.com</a>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <div class="contact-info-icon">⏰</div>
+                <div class="contact-info-text">
+                  <strong>სამუშაო საათები</strong>
+                  <span>ორშ – შაბათი: 10:00 – 18:00</span>
+                  <span class="hours-note">კვირა: დასვენება</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-info-card">
+            <h3>🌐 სოციალური</h3>
+            <div class="social-links">
+              <a href="#" class="social-link-btn">📘 Facebook</a>
+              <a href="#" class="social-link-btn">📸 Instagram</a>
+            </div>
+          </div>
+
+          <div class="contact-info-card">
+            <h3>📍 რუქა</h3>
+            <div class="map-embed">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2977.6742497082!2d44.77!3d41.71!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDQyJzM2LjAiTiA0NMKwNDYnMTIuMCJF!5e0!3m2!1ska!2sge!4v1234567890"
+                width="100%"
+                height="200"
+                loading="lazy"
+                title="In Vera Dent კლინიკის მდებარეობა"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </aside>
+
+      </div><!-- /.contact-layout -->
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-title">
+    <div class="container container--medium">
+      <div class="section-header centered reveal">
+        <p class="label text-teal">FAQ</p>
+        <h2 class="display-md mt-8" id="faq-title">ხშირად დასმული კითხვები</h2>
+      </div>
+
+      <div class="faq-list" id="faqList">
+
+        <div class="faq-item reveal">
+          <button class="faq-q" aria-expanded="false">
+            პირველი ვიზიტი ფასიანია?
+            <span class="arrow" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p>არა! პირველი კონსულტაცია კლინიკაში სრულიად უფასოა.
+            ექიმი შეაფასებს თქვენს მდგომარეობას და შემოგთავაზებთ სამკურნალო გეგმას.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-q" aria-expanded="false">
+            ბრეკეტების ჩამაგრება მტკივნეულია?
+            <span class="arrow" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p>ჩამაგრება უტკივარია. პირველ რამდენიმე დღეში შეიძლება მსუბუქი დისკომფორტი
+            იყოს, მაგრამ ის სწრაფად გადის. ჩვენ გეძლევათ სრული ინსტრუქცია მოვლის შესახებ.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-q" aria-expanded="false">
+            განვადება შეიძლება?
+            <span class="arrow" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p>კი! ვთავაზობთ 0%-იან განვადებას TBC Bank-ის პარტნიორობით.
+            ყველა სახის მომსახურებაზე 3-დან 24 თვემდე.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-q" aria-expanded="false">
+            ბავშვის მიყვანა შეიძლება?
+            <span class="arrow" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p>აუცილებლად! ჩვენ ვემსახურებით 5 წლიდან ზემოთ ასაკის პაციენტებს.
+            კლინიკა ბავშვისთვის ადაპტირებულია და ექიმები გამოცდილები არიან.</p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-q" aria-expanded="false">
+            პარკინგი არის?
+            <span class="arrow" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-a">
+            <p>კი, კლინიკის წინ გვაქვს უფასო პარკინგი. კლინიკის ადმინისტრაციას შეგიძლიათ
+            მიმართოთ პარკინგის ადგილის დასაჯავშნად.</p>
+          </div>
+        </div>
+
+      </div><!-- /#faqList -->
+    </div>
+  </section>
+
+</main>
+
+<!-- ── Footer ────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <div class="logo-mark">🦷</div>
+          IN VERA <span>DENT</span>
+        </a>
+        <p class="mt-12">პროფესიონალური სტომატოლოგიური კლინიკა თბილისში.</p>
+        <div class="footer-socials mt-16">
+          <a href="#" class="footer-social-btn" aria-label="Facebook">📘</a>
+          <a href="#" class="footer-social-btn" aria-label="Instagram">📸</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>სერვისები</h4>
+        <ul>
+          <li><a href="services.html">თერაპია</a></li>
+          <li><a href="services.html">ქირურგია</a></li>
+          <li><a href="services.html">ორთოდონტია</a></li>
+          <li><a href="services.html">იმპლანტოლოგია</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>ნავიგაცია</h4>
+        <ul>
+          <li><a href="index.html">მთავარი</a></li>
+          <li><a href="services.html">სერვისები</a></li>
+          <li><a href="prices.html">ფასები</a></li>
+          <li><a href="contact.html">კონტაქტი</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>კონტაქტი</h4>
+        <ul>
+          <li><a href="#">📍 ვ.ბარნოვის ქ. 24</a></li>
+          <li><a href="tel:59993261">📞 599 93 26 16</a></li>
+          <li><a href="mailto:inveradent@gmail.com">✉️ inveradent@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 In Vera Dent. ყველა უფლება დაცულია.</p>
+      <p>Made with ❤️ in Tbilisi</p>
+    </div>
+  </div>
+</footer>
+
+<a href="tel:59993261" class="fab-phone" aria-label="დარეკვა">📞</a>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
+             
