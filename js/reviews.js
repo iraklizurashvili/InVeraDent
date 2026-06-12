@@ -76,6 +76,7 @@ function buildCard(review) {
 function renderAll(grid) {
   grid.innerHTML = '';
   reviews.forEach(r => grid.appendChild(buildCard(r)));
+  renderSummary(reviews);
 }
 
 // ── Interactive star rating builder ────────────────────────
@@ -108,12 +109,31 @@ function paint(container, value) {
   );
 }
 
+function renderSummary(list) {
+  const el = document.getElementById('reviewsSummary');
+  if (!el || !list.length) return;
+  const avg = (list.reduce((s, r) => s + r.rating, 0) / list.length).toFixed(1);
+  el.innerHTML = '';
+  const score = document.createElement('span');
+  score.className   = 'reviews-summary__score';
+  score.textContent = avg;
+  const stars = document.createElement('span');
+  stars.className = 'reviews-summary__stars';
+  stars.innerHTML = starsHtml(Math.round(avg));
+  const count = document.createElement('span');
+  count.className   = 'reviews-summary__count';
+  count.textContent = `${list.length} შეფასება`;
+  [score, stars, count].forEach(n => el.appendChild(n));
+  el.hidden = false;
+}
+
 // ── Public init ─────────────────────────────────────────────
 export function initReviews() {
   const grid = document.getElementById('reviewsGrid');
   if (!grid) return;
 
   renderAll(grid);
+  renderSummary(reviews);
 
   // Build star widget
   const starContainer = document.getElementById('starRating');
@@ -155,6 +175,7 @@ export function initReviews() {
       reviews = [newReview, ...reviews];
       persist();
       renderAll(grid);
+  renderSummary(reviews);
       form.reset();
       document.getElementById('starRating').querySelectorAll('.star-btn')
         .forEach(b => b.classList.remove('star-btn--on'));

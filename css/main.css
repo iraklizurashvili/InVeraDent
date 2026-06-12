@@ -1015,3 +1015,25 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
   .clinic-map   { height: 220px; }
   .review-form-wrap { padding: 20px; }
 }
+
+/* Reviews average rating summary */
+.reviews-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.reviews-summary__score {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--dark);
+  line-height: 1;
+}
+.reviews-summary__stars { display: flex; gap: 3px; }
+.reviews-summary__stars .star { font-size: 22px; }
+.reviews-summary__count {
+  font-size: 14px;
+  color: var(--text-soft);
+}
