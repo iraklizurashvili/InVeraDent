@@ -1,6 +1,8 @@
 // js/main.js — module entry point
 import { fetchAppointments } from './api.js';
 import { debounce, createSessionCounter, createPriceCalculator, formatDate, el } from './utils.js';
+import { initMap } from './map.js';
+import { initReviews } from './reviews.js';
 
 // ─────────────────────────────────────────────────────────────
 // Application State  (array of objects, kept at module scope)
@@ -530,4 +532,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initFaq();
   initServicePills();
   initPriceCalculator();
+  initMap();
+  initReviews();
 });

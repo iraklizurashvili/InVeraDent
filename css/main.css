@@ -854,5 +854,164 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
   .feature-chip-text { font-size: 13px; }
   .calc-item__text { flex-direction: column; align-items: flex-start; gap: 2px; }
 }
-/* responsive: updated media queries */
-/* final polish */
+
+/* ═══════════════════════════════════════════════════════════
+   MAP — Leaflet + geolocation
+   ═══════════════════════════════════════════════════════════ */
+.clinic-map {
+  width: 100%;
+  height: 280px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--gray-100);
+  margin-top: 8px;
+}
+
+.map-distance {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--teal-dark);
+  background: var(--mint);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+/* Custom Leaflet markers */
+.map-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+.map-pin--clinic {
+  width: 48px; height: 48px;
+  background: var(--teal-dark);
+  font-size: 22px;
+  transform: rotate(-45deg);
+}
+.map-pin--clinic span,
+.map-pin--clinic { transform: rotate(-45deg); }
+
+.map-pin--user {
+  width: 36px; height: 36px;
+  background: var(--white);
+  border: 2px solid var(--teal-dark);
+  font-size: 18px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   REVIEWS
+   ═══════════════════════════════════════════════════════════ */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.review-card {
+  background: var(--white);
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.review-card__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.review-card__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal-dark), var(--sky));
+  color: var(--white);
+  font-size: 18px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.review-card__name {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.review-card__date {
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.review-card__stars {
+  display: flex;
+  gap: 2px;
+}
+.star { color: var(--gray-200); font-size: 18px; }
+.star--on { color: #f59e0b; }
+
+.review-card__text {
+  font-size: 14px;
+  color: var(--text-body);
+  line-height: 1.6;
+  flex: 1;
+}
+
+/* Review submission form */
+.review-form-wrap {
+  background: var(--white);
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.review-form-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 20px;
+}
+
+/* Star rating widget */
+.star-rating {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+.star-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 28px;
+  color: var(--gray-200);
+  padding: 2px;
+  line-height: 1;
+  transition: color .15s, transform .15s;
+}
+.star-btn:hover,
+.star-btn--on { color: #f59e0b; transform: scale(1.15); }
+
+@media (max-width: 768px) {
+  .reviews-grid { grid-template-columns: 1fr; }
+  .clinic-map   { height: 220px; }
+  .review-form-wrap { padding: 20px; }
+}

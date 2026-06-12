@@ -257,62 +257,60 @@
   </section>
 
   <!-- Testimonials -->
-  <section class="section" aria-labelledby="testimonials-title">
+  <!-- Patient Reviews — dynamically rendered from localStorage + real POST API -->
+  <section class="section section--alt" aria-labelledby="reviews-title">
     <div class="container">
-      <div class="section-header reveal">
+
+      <div class="section-header centered reveal">
         <p class="label text-teal">შეფასებები</p>
-        <h2 class="display-md mt-8" id="testimonials-title">ჩვენი პაციენტები ამბობენ</h2>
+        <h2 class="display-md mt-8" id="reviews-title">ჩვენი პაციენტები ამბობენ</h2>
+        <p class="body-md text-soft mt-8">რეალური შეფასებები ჩვენი პაციენტებისგან</p>
       </div>
 
-      <div class="testimonials-scroll">
-        <article class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">საუკეთესო სტომატოლოგი, რომელსაც ოდესმე მივმართე. ძალიან კომფორტული გარემო.</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar" aria-hidden="true">ნ</div>
-            <div>
-              <div class="testimonial-name">ნინო მამულაშვილი</div>
-              <div class="testimonial-role">პაციენტი</div>
-            </div>
-          </div>
-        </article>
+      <!-- Reviews grid: populated by js/reviews.js via createElement -->
+      <div id="reviewsGrid" class="reviews-grid" role="list" aria-label="პაციენტების შეფასებები"></div>
 
-        <article class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">იმპლანტი ჩამიდეს, ძალიან კარგი შედეგი! პროცედურა სრულიად უტკივარი იყო.</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar" aria-hidden="true">გ</div>
-            <div>
-              <div class="testimonial-name">გიორგი კობახიძე</div>
-              <div class="testimonial-role">პაციენტი</div>
+      <!-- Submit a new review -->
+      <div class="review-form-wrap reveal">
+        <h3 class="review-form-title">გაგვიზიარეთ თქვენი გამოცდილება</h3>
+        <form id="reviewForm" class="review-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="reviewName">სახელი <span class="required">*</span></label>
+              <input
+                type="text"
+                id="reviewName"
+                class="form-input"
+                placeholder="მაგ. ნინო"
+                required
+                minlength="2"
+                maxlength="60"
+                autocomplete="given-name"
+              >
+            </div>
+            <div class="form-group">
+              <label>შეფასება <span class="required">*</span></label>
+              <div id="starRating" class="star-rating" role="group" aria-label="აირჩიეთ შეფასება"></div>
+              <input type="hidden" id="reviewRating" value="0">
             </div>
           </div>
-        </article>
-
-        <article class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">ბრეკეტები 1.5 წელიწადში მოვიხსენი. შედეგი ისეთია, ვეღარ ვიჯერებ!</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar" aria-hidden="true">მ</div>
-            <div>
-              <div class="testimonial-name">მარიამ ჩიქოვანი</div>
-              <div class="testimonial-role">პაციენტი</div>
-            </div>
+          <div class="form-group">
+            <label for="reviewText">კომენტარი <span class="required">*</span></label>
+            <textarea
+              id="reviewText"
+              class="form-input form-textarea"
+              rows="3"
+              placeholder="გაგვიზიარეთ თქვენი გამოცდილება…"
+              required
+              minlength="10"
+              maxlength="300"
+            ></textarea>
           </div>
-        </article>
-
-        <article class="testimonial-card">
-          <div class="testimonial-stars">★★★★☆</div>
-          <p class="testimonial-text">პირველად ვეწვიე, ბავშვის ბრეკეტებისთვის. ექიმი ძალიან მოთმინე და პროფესიონალია.</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar" aria-hidden="true">ა</div>
-            <div>
-              <div class="testimonial-name">ანა ბერიძე</div>
-              <div class="testimonial-role">პაციენტი</div>
-            </div>
-          </div>
-        </article>
+          <div id="reviewBanner" class="form-banner" hidden role="alert" aria-live="polite"></div>
+          <button type="submit" class="btn btn-primary">📤 გაგზავნა</button>
+        </form>
       </div>
+
     </div>
   </section>
 

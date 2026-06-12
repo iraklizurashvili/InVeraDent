@@ -6,6 +6,7 @@
   <meta name="description" content="In Vera Dent — ჩაწერა და კონტაქტი">
   <title>კონტაქტი | In Vera Dent</title>
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body>
 
@@ -266,17 +267,9 @@
           </div>
 
           <div class="contact-info-card">
-            <h3>📍 რუქა</h3>
-            <div class="map-embed">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2977.6742497082!2d44.77!3d41.71!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDQyJzM2LjAiTiA0NMKwNDYnMTIuMCJF!5e0!3m2!1ska!2sge!4v1234567890"
-                width="100%"
-                height="200"
-                loading="lazy"
-                title="In Vera Dent კლინიკის მდებარეობა"
-                allowfullscreen
-              ></iframe>
-            </div>
+            <h3>📍 კლინიკის მდებარეობა</h3>
+            <p id="mapDistance" class="map-distance" hidden></p>
+            <div id="clinicMap" class="clinic-map"></div>
           </div>
         </aside>
 
