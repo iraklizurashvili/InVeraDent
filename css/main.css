@@ -38,6 +38,42 @@
   /* Layout */
   --navbar-h:    68px;
   --container-w: 1200px;
+
+  /* Theming surfaces — overridden in [data-theme="dark"] below */
+  --bg:         #fff;          /* page background       */
+  --surface:    #fff;          /* cards, panels, inputs */
+  --navbar-bg:  rgba(255,255,255,.92);
+  --footer-bg:  var(--dark);
+}
+
+/* ── Dark theme — only redefines tokens; components untouched ─
+   Note: --dark doubles as the main "ink" color throughout, so in
+   dark mode it flips light (text + hamburger bars stay readable);
+   the footer keeps its own --footer-bg instead. ─────────────── */
+[data-theme="dark"] {
+  --teal:        #34C7D9;
+  --teal-dark:   #2AB7CA;
+  --dark:        #EAF1F7;   /* now used as light "ink"  */
+  --text:        #E4ECF3;
+  --text-soft:   #9DB0C2;
+  --gray-50:     #18232F;   /* subtle elevated tint     */
+  --gray-100:    #2C3D4D;   /* borders                  */
+  --mint:        #15323A;
+  --sky:         #16323F;
+  --bg:          #0F1722;
+  --surface:     #1F2D3A;   /* cards sit above bg       */
+  --navbar-bg:   rgba(15,23,34,.92);
+  --footer-bg:   #0A111A;
+  --shadow-sm:   0 2px 12px rgba(0,0,0,.40);
+  --shadow-md:   0 8px 32px rgba(0,0,0,.50);
+  --shadow-lg:   0 20px 60px rgba(0,0,0,.60);
+}
+
+html { transition: background-color .25s ease; }
+body, .navbar, .nav-drawer, .footer,
+.service-card, .price-table, .calculator-card, .contact-form-card,
+.contact-info-card, .faq-item, .appt-card, .stat-card {
+  transition: background-color .25s ease, border-color .25s ease, color .25s ease;
 }
 
 /* ── Reset ────────────────────────────────────────────────── */
@@ -51,7 +87,7 @@ html {
 body {
   font-family: var(--font-body);
   color: var(--text);
-  background: #fff;
+  background: var(--bg);
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -59,6 +95,7 @@ body {
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
+address { font-style: normal; }
 button { background: none; border: none; cursor: pointer; font-family: inherit; }
 
 /* ── Typography Scale ─────────────────────────────────────── */
@@ -204,7 +241,7 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
   top: 0;
   z-index: 100;
   height: var(--navbar-h);
-  background: rgba(255,255,255,.92);
+  background: var(--navbar-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--gray-100);
@@ -279,7 +316,7 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
 .nav-drawer {
   position: fixed;
   inset: var(--navbar-h) 0 0 0;
-  background: #fff;
+  background: var(--surface);
   z-index: 99;
   padding: 24px;
   display: flex; flex-direction: column; gap: 4px;
@@ -323,7 +360,7 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
 /* ── Hero ─────────────────────────────────────────────────── */
 .hero {
   padding: 60px 0 72px;
-  background: linear-gradient(160deg, #fff 0%, var(--sky) 100%);
+  background: linear-gradient(160deg, var(--bg) 0%, var(--sky) 100%);
   overflow: hidden;
 }
 .hero-inner {
@@ -390,7 +427,7 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
 .reveal.visible, .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: none; }
 
 /* ── Features Strip ───────────────────────────────────────── */
-.features-strip { padding: 24px 0; background: #fff; border-top: 1px solid var(--gray-100); border-bottom: 1px solid var(--gray-100); }
+.features-strip { padding: 24px 0; background: var(--surface); border-top: 1px solid var(--gray-100); border-bottom: 1px solid var(--gray-100); }
 .features-strip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .feature-chip {
   display: flex; align-items: center; gap: 14px;
@@ -437,7 +474,7 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
 /* ── Services Grid ────────────────────────────────────────── */
 .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .service-card {
-  background: #fff; border-radius: var(--radius-lg);
+  background: var(--surface); border-radius: var(--radius-lg);
   overflow: hidden; border: 1px solid var(--gray-100);
   box-shadow: var(--shadow-sm); transition: transform .25s, box-shadow .25s;
 }
@@ -480,7 +517,7 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
 .cta-banner-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 
 /* ── Footer ───────────────────────────────────────────────── */
-.footer { background: var(--dark); color: rgba(255,255,255,.75); padding: 60px 0 0; }
+.footer { background: var(--footer-bg); color: rgba(255,255,255,.75); padding: 60px 0 0; }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 48px; }
 .footer-brand .logo { color: #fff; }
 .footer-brand .logo span { color: var(--teal); }
@@ -513,7 +550,7 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
    ============================================================ */
 .contact-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
 .contact-info { display: flex; flex-direction: column; gap: 16px; }
-.contact-info-card { background: white; border: 1px solid var(--gray-100); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-sm); }
+.contact-info-card { background: var(--surface); border: 1px solid var(--gray-100); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-sm); }
 .contact-info-list { list-style: none; margin: 0; padding: 0; }
 .contact-info-item { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--gray-100); }
 .contact-info-item:last-child  { border-bottom: none; padding-bottom: 0; }
@@ -531,7 +568,7 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
 .hours-row .time  { color: var(--teal-dark); font-weight: 700; }
 .hours-row .time.closed { color: var(--text-soft); }
 
-.contact-form-card { background: white; border: 1px solid var(--gray-100); border-radius: var(--radius-lg); padding: 36px; box-shadow: var(--shadow-sm); }
+.contact-form-card { background: var(--surface); border: 1px solid var(--gray-100); border-radius: var(--radius-lg); padding: 36px; box-shadow: var(--shadow-sm); }
 .contact-form-card h2 { font-size: 22px; font-weight: 900; color: var(--dark); margin-bottom: 6px; }
 .contact-form-card > p { font-size: 14px; color: var(--text-soft); margin-bottom: 28px; }
 
@@ -552,11 +589,11 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
 }
 .form-group input:focus,
 .form-group select:focus,
-.form-group textarea:focus { outline: none; border-color: var(--teal); background: white; }
+.form-group textarea:focus { outline: none; border-color: var(--teal); background: var(--surface); }
 .form-group textarea { resize: vertical; min-height: 100px; }
 
 /* Real-time validation states */
-.input--valid   { border-color: var(--teal) !important; background: white !important; }
+.input--valid   { border-color: var(--teal) !important; background: var(--surface) !important; }
 .input--invalid { border-color: var(--coral) !important; }
 .field-error    { font-size: 12px; color: var(--coral); margin-top: 2px; }
 
@@ -564,6 +601,17 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
 .form-banner { padding: 12px 16px; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; margin-bottom: 16px; }
 .form-banner--error { background: var(--coral-light); color: var(--coral); border: 1px solid rgba(255,107,107,.3); }
 .form--hidden { display: none !important; }
+.btn-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  vertical-align: -2px;
+  border: 2px solid rgba(255,255,255,.45);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
 
 .form-submit { width: 100%; padding: 15px; font-size: 15px; font-weight: 800; background: var(--teal-dark); color: white; border: none; border-radius: var(--radius-md); cursor: pointer; transition: background .15s, transform .1s; font-family: var(--font-body); }
 .form-submit:hover  { background: var(--teal); transform: translateY(-1px); }
@@ -580,12 +628,12 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
 .form-success__msg,
 .form-success p  { color: var(--text-soft); font-size: 15px; }
 
-.map-card { background: white; border: 1px solid var(--gray-100); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+.map-card { background: var(--surface); border: 1px solid var(--gray-100); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
 .map-embed { width: 100%; height: 260px; border: none; display: block; background: var(--gray-50); }
 .map-footer { padding: 16px 20px; display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-soft); }
 .map-footer strong { color: var(--dark); }
 
-.faq-item { background: white; border: 1px solid var(--gray-100); border-radius: var(--radius-md); margin-bottom: 10px; overflow: hidden; }
+.faq-item { background: var(--surface); border: 1px solid var(--gray-100); border-radius: var(--radius-md); margin-bottom: 10px; overflow: hidden; }
 .faq-q { padding: 18px 20px; font-size: 15px; font-weight: 700; color: var(--dark); cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; transition: background .15s; }
 .faq-q:hover { background: var(--gray-50); }
 .faq-q .arrow { font-size: 12px; color: var(--text-soft); transition: transform .25s; }
@@ -616,7 +664,7 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
   transition: border-color .15s, background .15s;
   width: 220px;
 }
-.search-input:focus { outline: none; border-color: var(--teal); background: white; }
+.search-input:focus { outline: none; border-color: var(--teal); background: var(--surface); }
 
 .filter-select {
   padding: 10px 16px;
@@ -641,9 +689,10 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
 .appt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 
 .appt-card {
-  background: white; border: 1px solid var(--gray-100);
+  position: relative;
+  background: var(--surface); border: 1px solid var(--gray-100);
   border-radius: var(--radius-lg); padding: 0;
-  cursor: pointer; transition: transform .2s, box-shadow .2s;
+  cursor: pointer; transition: transform .2s, box-shadow .2s, opacity .2s;
   box-shadow: var(--shadow-sm); overflow: hidden;
 }
 .appt-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
@@ -684,7 +733,7 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
   animation: fadeIn .2s ease;
 }
 .modal-card {
-  background: white; border-radius: var(--radius-xl);
+  background: var(--surface); border-radius: var(--radius-xl);
   padding: 36px; max-width: 420px; width: 100%;
   position: relative;
   animation: modalUp .3s cubic-bezier(.34,1.56,.64,1);
@@ -702,7 +751,7 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
 /* ============================================================
    PRICES PAGE
    ============================================================ */
-.price-table { background: white; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-100); margin-bottom: 32px; }
+.price-table { background: var(--surface); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--gray-100); margin-bottom: 32px; }
 .price-table-header { background: linear-gradient(135deg, var(--mint) 0%, var(--sky) 100%); padding: 20px 24px; display: flex; align-items: center; gap: 12px; }
 .price-table-header h3 { font-size: 17px; font-weight: 800; color: var(--dark); }
 .price-table-header .icon { font-size: 24px; }
@@ -725,7 +774,7 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
 .installment-opt .desc   { font-size: 12px; color: rgba(255,255,255,.75); margin-top: 2px; }
 
 /* Price Calculator */
-.calculator-card { background: white; border: 1px solid var(--gray-100); border-radius: var(--radius-xl); padding: 32px; box-shadow: var(--shadow-md); }
+.calculator-card { background: var(--surface); border: 1px solid var(--gray-100); border-radius: var(--radius-xl); padding: 32px; box-shadow: var(--shadow-md); }
 .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 28px; }
 .calc-item {
   display: flex; align-items: center; gap: 14px;
@@ -733,7 +782,7 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
   border: 1.5px solid var(--gray-100);
   cursor: pointer; transition: all .15s; background: var(--gray-50);
 }
-.calc-item:hover { border-color: var(--teal); background: white; }
+.calc-item:hover { border-color: var(--teal); background: var(--surface); }
 .calc-item--active { border-color: var(--teal-dark); background: var(--mint); }
 .calc-checkbox { width: 18px; height: 18px; accent-color: var(--teal-dark); cursor: pointer; flex-shrink: 0; }
 .calc-item__text  { display: flex; justify-content: space-between; align-items: center; flex: 1; gap: 8px; }
@@ -756,7 +805,7 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
 .service-detail-img { border-radius: var(--radius-lg); overflow: hidden; position: relative; aspect-ratio: 4/3; }
 .service-detail-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
 .service-detail-img:hover img { transform: scale(1.04); }
-.service-detail-badge { position: absolute; bottom: 16px; left: 16px; background: white; border-radius: var(--radius-md); padding: 10px 16px; box-shadow: var(--shadow-md); font-size: 13px; font-weight: 700; color: var(--teal-dark); display: flex; align-items: center; gap: 6px; }
+.service-detail-badge { position: absolute; bottom: 16px; left: 16px; background: var(--surface); border-radius: var(--radius-md); padding: 10px 16px; box-shadow: var(--shadow-md); font-size: 13px; font-weight: 700; color: var(--teal-dark); display: flex; align-items: center; gap: 6px; }
 
 .service-detail-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--mint), var(--sky)); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 20px; }
 .service-detail-content h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 900; color: var(--dark); margin-bottom: 12px; line-height: 1.25; }
@@ -770,7 +819,7 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
 .service-price-inline strong { font-size: 18px; font-weight: 900; color: var(--teal-dark); font-family: var(--font-display); }
 
 .service-pills  { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 48px; }
-.service-pill   { padding: 8px 18px; border-radius: 99px; font-size: 14px; font-weight: 600; background: white; border: 1.5px solid var(--gray-100); color: var(--text); cursor: pointer; text-decoration: none; transition: all .15s; }
+.service-pill   { padding: 8px 18px; border-radius: 99px; font-size: 14px; font-weight: 600; background: var(--surface); border: 1.5px solid var(--gray-100); color: var(--text); cursor: pointer; text-decoration: none; transition: all .15s; }
 .service-pill:hover, .service-pill.active { background: var(--teal-dark); border-color: var(--teal-dark); color: white; }
 
 .section-divider { border: none; border-top: 1px solid var(--gray-100); margin: 0 0 72px; }
@@ -1037,3 +1086,34 @@ button { background: none; border: none; cursor: pointer; font-family: inherit; 
   font-size: 14px;
   color: var(--text-soft);
 }
+
+/* ── Theme toggle button (injected into navbar by theme.js) ─── */
+.theme-toggle {
+  font-size: 16px;
+  line-height: 1;
+  padding: 7px 10px;
+}
+.theme-toggle:hover { background: var(--gray-50); }
+
+/* ── Dashboard card delete button (DELETE request) ──────────── */
+.appt-card__delete {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border-radius: 50%;
+  background: var(--coral-light);
+  opacity: 0;
+  transform: scale(.85);
+  transition: opacity .15s, transform .15s, background .15s;
+}
+.appt-card:hover .appt-card__delete,
+.appt-card:focus-within .appt-card__delete { opacity: 1; transform: scale(1); }
+.appt-card__delete:hover { background: var(--coral); }
+.appt-card--deleting { opacity: .4; pointer-events: none; }

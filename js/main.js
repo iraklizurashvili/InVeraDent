@@ -1,8 +1,9 @@
 // js/main.js — module entry point
-import { fetchAppointments } from './api.js';
+import { fetchAppointments, createAppointment, deleteAppointment } from './api.js';
 import { debounce, createSessionCounter, createPriceCalculator, formatDate, el } from './utils.js';
 import { initMap } from './map.js';
 import { initReviews } from './reviews.js';
+import { initTheme } from './theme.js';
 
 // ─────────────────────────────────────────────────────────────
 // Application State  (array of objects, kept at module scope)
@@ -131,6 +132,14 @@ function initBookingForm() {
   });
 }
 
+function setSubmitLoading(isLoading) {
+  const btn     = document.getElementById('submitBtn');
+  const spinner = document.getElementById('submitSpinner');
+  if (!btn) return;
+  btn.disabled = isLoading;
+  spinner?.classList.toggle('form--hidden', !isLoading);
+}
+
 function setFieldState(input, isValid, errorMsg) {
   const wrap = input.parentElement;
   wrap.querySelector('.field-error')?.remove();
@@ -141,7 +150,7 @@ function setFieldState(input, isValid, errorMsg) {
   }
 }
 
-function handleFormSubmit(form) {
+async function handleFormSubmit(form) {
   const fname   = document.getElementById('fname')?.value.trim()             ?? '';
   const lname   = document.getElementById('lname')?.value.trim()             ?? '';
   const phone   = document.getElementById('phone')?.value.replace(/\D/g,'') ?? '';
@@ -160,6 +169,23 @@ function handleFormSubmit(form) {
 
   // Persist last-used preferences (not PII — just UX convenience)
   localStorage.setItem('lastService', service);
+
+  // Send the booking to the real backend so it appears on the dashboard
+  setSubmitLoading(true);
+  try {
+    await createAppointment({
+      name:    `${fname} ${lname}`.trim(),
+      service,
+      date,
+      status:  'pending',
+      phone,
+      notes,
+    });
+  } catch (err) {
+    setSubmitLoading(false);
+    return showBanner(`⚠️ ${err.message}. სცადეთ თავიდან.`, 'error');
+  }
+  setSubmitLoading(false);
 
   // Count how many bookings this session via closure-based counter
   const count = bookingCounter.increment();
@@ -335,11 +361,41 @@ function buildCard(appt, idx) {
   body.className = 'appt-card__body';
   [service, name, date, badge].forEach(c => body.appendChild(c));
 
+  // 🗑️ delete button — DELETE request, stops the card's modal click
+  const delBtn = document.createElement('button');
+  delBtn.className = 'appt-card__delete';
+  delBtn.type = 'button';
+  delBtn.textContent = '🗑️';
+  delBtn.setAttribute('aria-label', 'ჩაწერის წაშლა');
+  delBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    handleDeleteAppointment(appt, card);
+  });
+
+  card.appendChild(delBtn);
   card.appendChild(body);
   card.setAttribute('title', 'დეტალების სანახავად დააწექით');
   card.setAttribute('role', 'button');
   card.setAttribute('tabindex', '0');
   return card;
+}
+
+async function handleDeleteAppointment(appt, card) {
+  if (!confirm(`წავშალო ${appt.name || 'ეს'}-ის ჩაწერა?`)) return;
+  card.classList.add('appt-card--deleting');
+  try {
+    await deleteAppointment(appt.id);
+    // Drop it from module state and re-render so stats stay in sync
+    state.appointments = state.appointments.filter(a => a.id !== appt.id);
+    filterAndRender();
+  } catch (err) {
+    card.classList.remove('appt-card--deleting');
+    const errorDiv = document.getElementById('error-message');
+    if (errorDiv) {
+      errorDiv.textContent = `⚠️ ${err.message}`;
+      errorDiv.hidden = false;
+    }
+  }
 }
 
 function updateStats() {
@@ -522,11 +578,48 @@ function initServicePills() {
 }
 
 // ─────────────────────────────────────────────────────────────
+// Animated Stat Counters  (index.html hero)
+// Counts each .stat-num up from 0 to its data-target when it
+// first scrolls into view, then keeps the optional data-suffix.
+// ─────────────────────────────────────────────────────────────
+function initStatCounters() {
+  const nums = document.querySelectorAll('.stat-num[data-target]');
+  if (!nums.length) return;
+
+  const obs = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      animateCount(entry.target);
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.4 });
+
+  nums.forEach(n => obs.observe(n));
+}
+
+function animateCount(elNum) {
+  const target   = Number(elNum.dataset.target) || 0;
+  const suffix   = elNum.dataset.suffix || '';
+  const duration = 1400;
+  const start    = performance.now();
+
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased    = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+    elNum.textContent = Math.round(target * eased).toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+// ─────────────────────────────────────────────────────────────
 // Bootstrap — runs after DOM is ready
 // ─────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
   initNavbar();
   initScrollReveal();
+  initStatCounters();
   initBookingForm();
   initDashboard();
   initFaq();
